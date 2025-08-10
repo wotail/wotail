@@ -1,0 +1,12 @@
+[workspace]
+resolver = "3"
+members = [
+  "binaries/c2", 
+  "binaries/cli",
+  "binaries/wolbot",
+  "crates/api-c2",
+  "crates/api-tailscale",
+  "crates/api-wolbot",
+  "crates/wol",
+  "crates/wotail"
+  ]
