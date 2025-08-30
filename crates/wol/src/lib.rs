@@ -10,7 +10,6 @@ pub fn wake_on_lan(
     wake_on_lan_broadcast(mac, "255.255.255.255:9")
 }
 
-
 pub fn wake_on_lan_broadcast(
     mac: &str,
     broadcast_addr: &str,
