@@ -8,7 +8,7 @@ pub struct MacAddr {
 impl MacAddr {
 
   pub fn from_bytes<B: AsRef<[u8]>>(bytes: B) -> Result<Self, &'static str> {
-    let b = bytes.as_ref();
+    let b: &[u8] = bytes.as_ref();
     if b.len() != 6 {
       return Err("MAC address must be 6 bytes");
     }
@@ -20,7 +20,7 @@ impl MacAddr {
     if parts.len() != 6 {
       return Err("Invalid MAC address format");
     }
-    let mut bytes = Vec::with_capacity(6);
+    let mut bytes: Vec<u8> = Vec::with_capacity(6);
     for part in parts {
       match u8::from_str_radix(part, 16) {
         Ok(b) => bytes.push(b),

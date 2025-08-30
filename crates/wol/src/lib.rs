@@ -20,19 +20,19 @@ pub fn wake_on_lan_broadcast(
         Err(e) => return Err(e.into()),
     };
 
-    let mac_bytes = binding.as_bytes();
+    let mac_bytes: &[u8] = binding.as_bytes();
 
     if mac_bytes.len() != 6 { return Err("MAC address must be 6 bytes".into()); }
 
     // Build magic packet
-    let mut packet = vec![0xFF; 6];
+    let mut packet: Vec<u8> = vec![0xFF; 6];
     
     for _ in 0..16 {
         packet.extend(mac_bytes);
     }
 
     // Send packet to broadcast address
-    let socket = UdpSocket::bind("0.0.0.0:0")?;
+    let socket: UdpSocket = UdpSocket::bind("0.0.0.0:0")?;
     socket.set_broadcast(true)?;
     socket.send_to(&packet, broadcast_addr)?;
 
@@ -41,25 +41,27 @@ pub fn wake_on_lan_broadcast(
 
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
+
     use super::*;
 
     #[test]
     fn test_wake_on_lan_with_overlength_mac_str() {
-        let mac = "00:11:22:33:44:55:66";
-        let result = wake_on_lan(mac);
+        let mac: &'static str = "00:11:22:33:44:55:66";
+        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac);
         assert!(result.is_err());
     }
 
     #[test]
     fn test_wake_on_lan_with_empty_mac_str() {
-        let result = wake_on_lan("");
+        let result: Result<(), Box<dyn Error>> = wake_on_lan("");
         assert!(result.is_err());
     }
 
     #[test]
     fn test_wake_on_lan_with_known_mac() {
-        let mac = "00:22:4d:9b:92:32";  // Test PC
-        let result = wake_on_lan(mac);
+        let mac: &'static str = "00:22:4d:9b:92:32";  // Test PC
+        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac);
         assert!(result.is_ok());
     }
 
