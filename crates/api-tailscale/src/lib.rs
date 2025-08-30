@@ -1,7 +1,7 @@
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
-
+mod list_devices;
 #[cfg(test)]
 mod tests {
     use super::*;
