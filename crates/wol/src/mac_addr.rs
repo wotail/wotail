@@ -1,5 +1,7 @@
 use std::fmt;
 
+
+/// A struct that represents a MAC Address
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct MacAddr {
   bytes: Vec<u8>,
@@ -7,6 +9,7 @@ pub struct MacAddr {
 
 impl MacAddr {
 
+  /// Converts a vec of bytes into a mac address
   pub fn from_bytes<B: AsRef<[u8]>>(bytes: B) -> Result<Self, &'static str> {
     let b: &[u8] = bytes.as_ref();
     if b.len() != 6 {
@@ -15,6 +18,7 @@ impl MacAddr {
     Ok(Self { bytes: b.to_vec() })
   }
 
+  /// Converts a string into a mac address
   pub fn from_str(s: &str) -> Result<Self, &'static str> {
     let parts: Vec<&str> = s.split(|c| c == ':' || c == '-').collect();
     if parts.len() != 6 {
@@ -30,6 +34,7 @@ impl MacAddr {
     Ok(Self { bytes })
   }
 
+  /// Returns the mac address as a vec of bytes
   pub fn as_bytes(&self) -> &[u8] {
     &self.bytes
   }

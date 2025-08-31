@@ -4,12 +4,14 @@ use crate::mac_addr::MacAddr;
 
 pub mod mac_addr;
 
+/// Sends a wake on lan packet to a specified mac address (broadcasting to 255.255.255.255:9)
 pub fn wake_on_lan(
     mac: &str
 )-> Result<(), Box<dyn std::error::Error>> {
     wake_on_lan_broadcast(mac, "255.255.255.255:9")
 }
 
+/// Sends a wake on lan packet to a specified mac address from a spesific broadcast address
 pub fn wake_on_lan_broadcast(
     mac: &str,
     broadcast_addr: &str,
