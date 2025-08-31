@@ -5,14 +5,14 @@ use crate::mac_addr::MacAddr;
 pub mod mac_addr;
 
 /// Sends a wake on lan packet to a specified mac address (broadcasting to 255.255.255.255:9)
-pub fn wake_on_lan(
+pub async fn wake_on_lan(
     mac: &str
 )-> Result<(), Box<dyn std::error::Error>> {
-    wake_on_lan_broadcast(mac, "255.255.255.255:9")
+    wake_on_lan_broadcast(mac, "255.255.255.255:9").await // TODO: could be more efficient
 }
 
 /// Sends a wake on lan packet to a specified mac address from a spesific broadcast address
-pub fn wake_on_lan_broadcast(
+pub async fn wake_on_lan_broadcast(
     mac: &str,
     broadcast_addr: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -47,23 +47,23 @@ mod tests {
 
     use super::*;
 
-    #[test]
-    fn test_wake_on_lan_with_overlength_mac_str() {
+    #[tokio::test]
+    async fn test_wake_on_lan_with_overlength_mac_str() {
         let mac: &'static str = "00:11:22:33:44:55:66";
-        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac);
+        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac).await;
         assert!(result.is_err());
     }
 
-    #[test]
-    fn test_wake_on_lan_with_empty_mac_str() {
-        let result: Result<(), Box<dyn Error>> = wake_on_lan("");
+    #[tokio::test]
+    async fn test_wake_on_lan_with_empty_mac_str() {
+        let result: Result<(), Box<dyn Error>> = wake_on_lan("").await;
         assert!(result.is_err());
     }
 
-    #[test]
-    fn test_wake_on_lan_with_known_mac() {
+    #[tokio::test]
+    async fn test_wake_on_lan_with_known_mac() {
         let mac: &'static str = "00:22:4d:9b:92:32";  // Test PC
-        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac);
+        let result: Result<(), Box<dyn Error>> = wake_on_lan(mac).await;
         assert!(result.is_ok());
     }
 
