@@ -30,13 +30,23 @@ pub async fn get_devices(){
     if devices.is_some() {
         let test = devices.unwrap().as_array().expect("test");
         test.iter().for_each(|f| {
-            let id = f.get("id").expect("test").as_str().expect("test").to_string();
-            device_filtered.push(device::Device::new(id, "test".to_string()));
+            let id = f.get("id").expect("No ID").as_str().expect("Cannot parse ID").to_string();
+
+            let client_connectivity = f.get("clientConnectivity").unwrap();
+            //println!("{client_connectivity}");
+
+            let ip = client_connectivity.get("endpoints").expect("No endpoints").as_array().expect("Cannot make into array");
+            let ip: Vec<String> = ip.iter().map(|c| c.clone().to_string()).collect();
+
+            let new_device = device::Device::new(id, ip);
+            device_filtered.push(new_device);
         });
     }
     device_filtered.iter().for_each(|d| {
         println!("ID: {:}", d.device_id);
-        println!("IP: {:}", d.local_ip);
+         d.local_ip.iter().for_each(|i|{
+             println!("Potential Local IP: {i}");
+         });
     });
 }
 
