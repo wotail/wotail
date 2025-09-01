@@ -8,5 +8,5 @@ members = [
   "crates/api-tailscale",
   "crates/api-wolbot",
   "crates/wol",
-  "crates/wotail"
+  "crates/commons"
   ]
