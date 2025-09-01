@@ -4,4 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+wotail-lib = { path = "../wotail"}
 tokio = { version = "1.47.1", features = ["full"] }
+

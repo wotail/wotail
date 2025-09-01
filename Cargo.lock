@@ -379,6 +379,7 @@ name = "wotail-wol"
 version = "0.1.0"
 dependencies = [
  "tokio",
+ "wotail-lib",
 ]
 
 [[package]]

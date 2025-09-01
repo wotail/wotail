@@ -1,8 +1,6 @@
 use tokio::net::UdpSocket;
 
-use crate::mac_addr::MacAddr;
-
-pub mod mac_addr;
+use wotail_lib::mac_addr::MacAddr;
 
 // /// Sends a wake on lan packet to a specified mac address (broadcasting to 255.255.255.255:9)
 // pub async fn wake_on_lan(
