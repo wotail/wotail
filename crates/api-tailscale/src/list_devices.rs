@@ -1,11 +1,13 @@
 
 
 use reqwest::{self, Client};
-use crate::structs::device::{self, Device};
-use std::error::Error;
+use crate::structs::tailscale_response::TailscaleResponse;
+use std::{error::Error};
 
 
-pub async fn get_devices() -> Result<Vec<Device>, Box<dyn Error>>{
+
+
+pub async fn get_devices() -> Result<TailscaleResponse, Box<dyn Error>>{
 
     let token = env::var("TAILSCALE_TOKEN")?;
     let tailnet = env::var("TAILNET")?;
@@ -16,33 +18,9 @@ pub async fn get_devices() -> Result<Vec<Device>, Box<dyn Error>>{
         .header("Authorization", format!("Bearer {token}"))
         .send()
         .await?
-        .json::<serde_json::Value>()
+        .json::<TailscaleResponse>()
         .await?;
-    let mut device_filtered: Vec<device::Device> = Vec::new();
-    let devices = response.get("devices")
-        .ok_or("API Response does not contain devices")?
-        .as_array()
-        .ok_or("Devices is not an array")?;
-    devices.iter().for_each(|f| {
-        let id = f.get("id")
-        .ok_or("Device does not contain a ID")
-        .as_str()
-        .ok_or(err)
-        .expect("Cannot parse ID").to_string();
-
-        let client_connectivity = f.get("clientConnectivity").unwrap();
-
-
-        let ip = client_connectivity.get("endpoints").expect("No endpoints").as_array().expect("Cannot make into array");
-        let ip: Vec<String> = ip.iter().map(|c| c.clone().to_string()).collect();
-
-        let new_device = device::Device::new(id, ip);
-        device_filtered.push(new_device);
-    });
-    
-
-
-    Ok(device_filtered)
+    Ok(response)
     
 }
 
@@ -51,6 +29,6 @@ mod tests {
     use super::*;
     #[tokio::test]
     async fn test_get_devices(){
-        let _ = get_devices().await.expect("Error");
+        assert!(get_devices().await.is_ok());
     }
 }
