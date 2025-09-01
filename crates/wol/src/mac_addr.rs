@@ -4,7 +4,7 @@ use std::fmt;
 /// A struct that represents a MAC Address
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct MacAddr {
-  bytes: Vec<u8>,
+  bytes: [u8; 6],
 }
 
 impl MacAddr {
@@ -15,7 +15,7 @@ impl MacAddr {
     if b.len() != 6 {
       return Err("MAC address must be 6 bytes");
     }
-    Ok(Self { bytes: b.to_vec() })
+    Ok(Self { bytes: b.try_into().map_err(|_| "MAC address must be 6 bytes")? })
   }
 
   /// Converts a string into a mac address
@@ -31,11 +31,11 @@ impl MacAddr {
         Err(_) => return Err("Invalid hex in MAC address"),
       }
     }
-    Ok(Self { bytes })
+    Ok(Self { bytes: bytes.try_into().map_err(|_| "MAC address must be 6 bytes")? })
   }
 
   /// Returns the mac address as a vec of bytes
-  pub fn as_bytes(&self) -> &[u8] {
+  pub fn as_bytes(&self) -> &[u8; 6] {
     &self.bytes
   }
 }
