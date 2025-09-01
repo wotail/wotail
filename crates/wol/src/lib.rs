@@ -11,7 +11,7 @@ pub mod mac_addr;
 //     wake_on_lan_broadcast(mac, "255.255.255.255:9").await // TODO: could be more efficient
 // }
 
-/// Sends a wake on lan packet to a specified mac address from a spesific broadcast address
+/// Sends a wake on lan packet to a specified mac address from a specific broadcast address
 pub async fn wake_on_lan(
     mac: &str,
     broadcast: Option<&str>,
