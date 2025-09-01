@@ -581,3 +581,5 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/rust-analyzer,rust,macos,jetbrains+all,visualstudiocode,visualstudio
 
+**/Cargo.lock
+Cargo.lock
