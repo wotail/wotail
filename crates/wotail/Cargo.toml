@@ -1,6 +1,11 @@
 [package]
-name = "wotail-lib"
+name = "wotail"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+wotail-api-c2 = { path = "../api-c2" }
+wotail-api-tailscale = { path = "../api-tailscale" }
+wotail-api-wolbot = { path = "../api-wolbot" }
+wotail-commons = { path = "../commons"}
+wotail-wol = { path = "../wol" }

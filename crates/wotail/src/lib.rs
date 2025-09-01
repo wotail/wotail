@@ -1,14 +1,5 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use wotail_api_c2;
+pub use wotail_api_tailscale;
+pub use wotail_api_wolbot;
+pub use wotail_commons;
+pub use wotail_wol;

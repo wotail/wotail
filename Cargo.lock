@@ -351,27 +351,55 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
 
 [[package]]
+name = "wotail"
+version = "0.1.0"
+dependencies = [
+ "wotail-api-c2",
+ "wotail-api-tailscale",
+ "wotail-api-wolbot",
+ "wotail-commons",
+ "wotail-wol",
+]
+
+[[package]]
 name = "wotail-api-c2"
 version = "0.1.0"
+dependencies = [
+ "wotail-commons",
+]
 
 [[package]]
 name = "wotail-api-tailscale"
 version = "0.1.0"
+dependencies = [
+ "wotail-commons",
+]
 
 [[package]]
 name = "wotail-api-wolbot"
 version = "0.1.0"
+dependencies = [
+ "wotail-commons",
+]
 
 [[package]]
 name = "wotail-c2"
 version = "0.1.0"
+dependencies = [
+ "tokio",
+ "wotail",
+]
 
 [[package]]
 name = "wotail-cli"
 version = "0.1.0"
+dependencies = [
+ "tokio",
+ "wotail",
+]
 
 [[package]]
-name = "wotail-lib"
+name = "wotail-commons"
 version = "0.1.0"
 
 [[package]]
@@ -379,8 +407,13 @@ name = "wotail-wol"
 version = "0.1.0"
 dependencies = [
  "tokio",
+ "wotail-commons",
 ]
 
 [[package]]
 name = "wotail-wolbot"
 version = "0.1.0"
+dependencies = [
+ "tokio",
+ "wotail",
+]
