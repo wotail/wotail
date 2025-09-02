@@ -1,5 +1,5 @@
-use wotail_commons::ip_addr_v4::IPAddrV4;
-use wotail_commons::mac_addr::MacAddr;
+use crate::ip_addr_v4::IPAddrV4;
+use crate::mac_addr::MacAddr;
 
 pub struct Device {
     pub device_id: String,

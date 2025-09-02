@@ -2,7 +2,8 @@
 
 use reqwest::{self, Client};
 use wotail_commons::ip_addr_v4::IPAddrV4;
-use crate::structs::{device::Device, tailscale_response::TailscaleResponse};
+use wotail_commons::device::Device;
+use crate::structs::{ tailscale_response::TailscaleResponse};
 use std::{error::Error};
 
 
