@@ -8,6 +8,7 @@ pub struct TailscaleResponse {
 #[allow(non_snake_case)]
 pub struct DeviceEntry {
     pub id: String,
+    pub name: String,
     pub clientConnectivity: Connectivity
 }
 #[derive(Deserialize)]
